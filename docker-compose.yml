@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  node_server:
+    container_name: practice_node_server
+    build:
+      context: .
+      dockerfile: Dockerfile-server
+    image: practice_node_server_image
+    ports:
+      - 3601:3601
+    volumes:
+      - .:/usr/server
+      - /usr/public/node_modules
+    links:
+      - react_server
+  react_server:
+    container_name: practice_react
+    build:
+      context: .
+      dockerfile: Dockerfile-react
+    image: practice_react_image
+    ports:
+      - 3600:3600
+    volumes:
+      - ./public:/usr/public
